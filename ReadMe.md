@@ -1,0 +1,31 @@
+# This program is to automate existing repo conversion to LFS
+(i) Ensure to take backup of repository (either bare or normal clone and checkout all branches)
+(i) Check about logging for all these commands
+### **Start LFS Tracking**
+1. Normal Clone a Repository (main.py)
+
+1. Install LFS Add files to be tracked by LFS
+
+1. Commit to the repository
+
+1. Push to remote
+
+### **Track LFS files**
+
+1. Bare Clone the Repository (main.py)
+
+1. Use BFG to convert repository to LFS based on file extensions
+    * Check options under BFG
+    * Use : `no-blob-protection`
+
+1. Run command to check if LFS files exists
+    * `git lfs ls-files --long --size --all`
+    * `git lfs status`  
+
+1. Run Aggressive GC
+    * `git reflog expire --expire=now --all && git gc --prune=now --aggressive`
+
+1. Force push bare repo
+    * `git push --force`
+        * Give user the option
+
