@@ -31,8 +31,8 @@ def run_bfg_convert():
     print(aggressive_gc)
     print(os.system(aggressive_gc))
     print("\n")
+
     # Force Push Repository and LFS files
-    # git push --force --all && git lfs push origin --all
     print("############################################")
     print("###  Force Push Repository & LFS Objects ###")
     print("############################################")
