@@ -29,4 +29,3 @@ while True:
 
 # is_bare = False
 # repo_clone.clone(is_bare)
-
