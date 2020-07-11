@@ -1,14 +1,18 @@
 # This file is to define functions to clone a repository and to clone a bare repository
 
 import git
-from git import RemoteProgress
+import decouple
+from decouple import Csv
 
-https_repo_url = "https://castenar@bitbucket.org/castenar/jenkins-test.git"
-repo_path = "/Users/pravin/Documents/Python/TESTCLONE/"
+https_repo_url = decouple.config('https_repo_url')
+repo_path = decouple.config('repo_path')
+# https_repo_url = "https://castenar@bitbucket.org/castenar/jenkins-test.git"
+# repo_path = "/Users/pravin/Documents/Python/TESTCLONE/"
 
 
 # https_repo_url = input("Enter Repo URL from which you want to clone: ")
 # repo_path = input("Enter Path to Clone Repository: ")
+
 
 def clone(is_bare):
     try:
@@ -23,11 +27,14 @@ def clone(is_bare):
     except git.exc.GitError as GitError:
         print("Error: ", GitError)
 
-#clone(is_bare=False)
 
 def push():
     repo = git.Repo(repo_path)
     g = git.cmd.Git(repo_path)
     print(g.remote(verbose=True), "\n")
     print(repo.git.push('origin', "-v"))
+
+
+clone(is_bare=False)
+
 

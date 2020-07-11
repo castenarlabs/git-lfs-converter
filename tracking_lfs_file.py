@@ -34,31 +34,19 @@ def tracking_lfs():
         # print(os.getcwd())
     
         # Track LFS files based on Pattern
-        patterns = []
-        data_valid = False
+        pattern = decouple.config('patterns', cast=Csv())
+        print(pattern)
+        print(type(pattern))
 
-        while data_valid == False:
-            try:
-                i = int(input("How many patterns do you want to enter: "))
-                data_valid = True
-            except ValueError as Val_Error:
-                print("Error: Please enter INTEGER Only ")
-
-        x = int(0)
-        while x < i:
-            new_pattern = input("State a pattern for a file you want to track: ")
-            patterns.append(new_pattern)
-            x += 1
-    
-        print("\n")
-        pat_len = len(patterns)
+        pattern_len = len(pattern)
         i = 0
-    
-        while i < pat_len:
+
+        while i < pattern_len:
             # print(patterns[i])
-            track = os.system("git lfs track '*." + patterns[i] + "'")
+            track = os.system("git lfs track '*." + pattern[i] + "'")
+            # print("git lfs track '*." + pattern[i] + "'")
             i += 1
-    
+
         if i == 0:
             print("No Patterns to Track")
             exit()
@@ -71,13 +59,10 @@ def tracking_lfs():
         print("Error:", os_error)
     except NameError as name_err :
         print("Error :", name_err)
-    
-
 
 
 #tracking_lfs()
 #chdir_to_pyrepo()
-    
     
     
 # print("ConfigReader: \n")
