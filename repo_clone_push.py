@@ -23,6 +23,7 @@ def clone(is_bare):
     except git.exc.GitError as GitError:
         print("Error: ", GitError)
 
+#clone(is_bare=False)
 
 def push():
     repo = git.Repo(repo_path)

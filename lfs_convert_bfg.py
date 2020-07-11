@@ -4,10 +4,15 @@ import status_branch_check as status_check
 import tracking_lfs_file as tracking_lfs
 import os
 import sys
+import decouple
+from decouple import Csv
 
 
 def run_bfg_convert():
-    bfg_command = "java -jar bfg.jar --convert-to-git-lfs '*.jpg' --no-blob-protection --private '" + repo_path + "'"
+    # Pattern from .env file
+    pattern = decouple.config('patterns')
+
+    bfg_command = "java -jar bfg.jar --convert-to-git-lfs '*.{" + pattern + "}' --no-blob-protection --private '" + repo_path + "'"
     aggressive_gc = "git reflog expire --expire=now --all && git gc --prune=now --aggressive"
     push_all = "git push --force --all && git lfs push origin --all"
 
@@ -21,7 +26,6 @@ def run_bfg_convert():
     print("\n")
     # Change to repo directory
     os.chdir(repo_path)
-    #print(os.getcwd())
 
     # Run Aggressive GC
     print("################################")
