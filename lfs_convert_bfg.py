@@ -1,6 +1,6 @@
 import git
 import repo_clone_push
-from repo_clone_push import repo_path
+import https_auth as auth
 import status_branch_check as status_check
 import tracking_lfs_file as tracking_lfs
 import os
@@ -13,7 +13,7 @@ def run_bfg_convert():
     # Pattern from .env file
     pattern = decouple.config('patterns')
 
-    bfg_command = "java -jar bfg.jar --convert-to-git-lfs '*.{" + pattern + "}' --no-blob-protection --private '" + repo_path + "'"
+    bfg_command = "java -jar bfg.jar --convert-to-git-lfs '*.{" + pattern + "}' --no-blob-protection --private '" + auth.repo_path + "'"
     aggressive_gc = "git reflog expire --expire=now --all && git gc --prune=now --aggressive"
     # push_all = "git push --force --all && git lfs push origin --all"
 
@@ -26,7 +26,7 @@ def run_bfg_convert():
     print(os.system(bfg_command))
     print("\n")
     # Change to repo directory
-    os.chdir(repo_path)
+    os.chdir(auth.repo_path)
 
     # Run Aggressive GC
     print("################################")
