@@ -35,7 +35,6 @@ def clone(is_bare):
 def push():
     repo = git.Repo(auth.repo_path)
     g = git.cmd.Git(auth.repo_path)
-    #print(g.remote(verbose=True), "\n")
     print(repo.git.push('origin', "-vv", verbose=True))
 
 
@@ -43,8 +42,5 @@ def lfs_force_push():
     #print(push_all)
     print(os.system(push_all))
 
-
-#clone(is_bare=True)
-
-
-
+#fr testing
+#(git.Repo.clone_from(auth.full_repo_url, auth.repo_path, mirror=True,))
