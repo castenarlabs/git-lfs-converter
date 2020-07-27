@@ -30,17 +30,17 @@
         * Give user the option
 
 ### **Sample .env file**
-``````
-# USE HTTPS OR SSH URL (Either ONE, Leave the latter empty)
-repo_url = "https://bitbucket.org/castenar/jenkins-test.git"
 
-# LOCAL PATHS
-repo_path = "/Users/pravin/Documents/Python/TESTCLONE/"
-
-# CREDENTIALS (Only for HTTPS)
-username = "castenar"
-app_password = "KNU5C8XDSB2E6V4LLXGU6J4W"
-
-#Define patterns separated by ,
-patterns=jpg,png,mp3
+    # USE HTTPS OR SSH URL (Either ONE, Leave the latter empty)
+    repo_url = "https://bitbucket.org/ctest/test.git"
+    
+    # LOCAL PATHS
+    repo_path = "/Documents/Python/TESTCLONE/"
+    
+    # CREDENTIALS (Only for HTTPS)
+    username = "castenar"
+    app_password = "asd"
+    
+    #Define patterns separated by ,
+    patterns=jpg,png,mp3
 
