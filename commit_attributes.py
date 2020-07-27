@@ -1,7 +1,7 @@
 import git
 import pygit2
 import repo_clone_push
-import https_auth as auth
+import auth_prep as auth
 import status_branch_check as status_check
 import os
 import logging

@@ -4,7 +4,7 @@ import git
 import decouple
 from decouple import Csv
 import os
-import https_auth as auth
+import auth_prep as auth
 
 
 #https_repo_url = decouple.config('https_repo_url')

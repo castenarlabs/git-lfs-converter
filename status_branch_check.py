@@ -2,7 +2,7 @@ import git
 import pygit2
 from git import Repo
 import repo_clone_push
-import https_auth as auth
+import auth_prep as auth
 import os
 import logging
 import sys

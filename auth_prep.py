@@ -19,6 +19,6 @@ if re.search('https.+', repo_url):
     # print("https")
     #print(full_repo_url)
 else:
-    full_repo_url = repo_url
+    full_repo_url = repo_urls
     # print("SSH")
     #print(full_repo_url)

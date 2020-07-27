@@ -1,6 +1,6 @@
 import git
 import repo_clone_push
-import https_auth as auth
+import auth_prep as auth
 import status_branch_check as status_check
 import tracking_lfs_file as tracking_lfs
 import os
