@@ -6,7 +6,6 @@ from decouple import Csv
 import os
 import auth_prep as auth
 
-
 #https_repo_url = decouple.config('https_repo_url')
 #repo_path = decouple.config('repo_path')
 # https_repo_url = "https://castenar@bitbucket.org/castenar/jenkins-test.git"
