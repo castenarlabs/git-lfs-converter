@@ -28,6 +28,3 @@ def env_check():
         print("\nVariable 'patterns' not defined in .env file")
         print("\nPlease ensure to define the 'patterns' variable")
         exit(1)
-
-
-env_check()
