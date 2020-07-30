@@ -1,19 +1,20 @@
 import git
 import pygit2
 from git import Repo
-from repo_clone_push import repo_path
+import repo_clone_push
+import auth_prep as auth
 import os
 import logging
 import sys
 
 
-# os.chdir(repo_path)
+# os.chdir(auth.repo_path)
 # current_working_directory = os.getcwd()
 # print(current_working_directory)
 
 def status_check():
     try:
-        repo=git.Repo(repo_path)
+        repo=git.Repo(auth.repo_path)
         print("###### CURRENT STATUS ######")
         print(repo.git.status())
         print("############################\n\n")
@@ -23,8 +24,8 @@ def status_check():
 
 def non_bare_checks():
     try:
-        # repo = git.Repo.init(repo_path)
-        repo = git.Repo(repo_path)
+        # repo = git.Repo.init(auth.repo_path)
+        repo = git.Repo(auth.repo_path)
     # current_working_directory = os.getcwd()
     # print("Current WORK DIR : ", current_working_directory)
         config_reader = repo.config_reader()
@@ -33,7 +34,7 @@ def non_bare_checks():
         print("The Configured GitAuthor is: ", config_reader.get_value("user", "name"))
         print("The configured Git Email is: ", config_reader.get_value("user", "email"), "\n")
 
-        print("Repository Path : ", repo_path, "\n\n")
+        print("Repository Path : ", auth.repo_path, "\n\n")
         status_check()
 
     # Check Current branch. Enter "<branch_name>" to create new branch. ('<flag>', "<branch_name>")
@@ -74,8 +75,8 @@ def non_bare_checks():
 
 def bare_checks():
     try:
-        repo = git.Repo(repo_path)
-        print("Your BARE Repository is in : ", repo_path)
+        repo = git.Repo(auth.repo_path)
+        print("Your BARE Repository is in : ", auth.repo_path)
     except git.exc.GitError as GitError:
         print("Error: ", GitError)
 

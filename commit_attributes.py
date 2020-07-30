@@ -1,6 +1,7 @@
 import git
 import pygit2
-from repo_clone_push import repo_path
+import repo_clone_push
+import auth_prep as auth
 import status_branch_check as status_check
 import os
 import logging
@@ -9,7 +10,7 @@ import subprocess
 
 
 def commit_attr():
-    repo = git.Repo(repo_path)
+    repo = git.Repo(auth.repo_path)
     # Checking Git Status
     status_check.status_check()
 

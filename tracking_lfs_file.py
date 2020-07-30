@@ -1,6 +1,7 @@
 import git
 import pygit2
-from repo_clone_push import repo_path
+import repo_clone_push
+import auth_prep as auth
 import os
 import logging
 import sys
@@ -23,14 +24,14 @@ def chdir_to_pyrepo():
 
 def tracking_lfs():
     try:
-        repo = git.Repo(repo_path)
+        repo = git.Repo(auth.repo_path)
         # print(repo.git.status(), "\n\n")
         print("Check / Lists all of LFS Configurations Exists in config files: ")
         lfs_config_check = os.system('git config --list |grep lfs')
         print(lfs_config_check, "\n\n")
 
         # Change to repo directory
-        os.chdir(repo_path)
+        os.chdir(auth.repo_path)
         # print(os.getcwd())
     
         # Track LFS files based on Pattern
@@ -83,7 +84,7 @@ def tracking_lfs():
 # print(stage, "\n")
 # print("The latest commit hash is :", committing)
 
-# repo = git.Repo(repo_path)
+# repo = git.Repo(auth.repo_path)
 # print(repo.git.status())
 
 
