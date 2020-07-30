@@ -5,7 +5,10 @@ import tracking_lfs_file as track_lfs
 import commit_attributes as committing
 import lfs_convert_bfg as lfs_convert
 import logging
+import env_file_check as check
 
+#Check to ensure all env are defined
+check.env_check()
 
 bare = input("Do you want to Clone a bare repository (Enter Yes or No): ").lower()
 
