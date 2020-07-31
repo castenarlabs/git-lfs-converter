@@ -32,15 +32,20 @@
 ### **Sample .env file**
 
     # USE HTTPS OR SSH URL (Either ONE, Leave the latter empty)
-    repo_url = "https://bitbucket.org/ctest/test.git"
+    repo_url = "https://bitbucket.org/castenar/jenkins-test.git"
     
-    # LOCAL PATHS
-    repo_path = "/Documents/Python/TESTCLONE/"
+    # LOCAL PATHS of where the cloned repository will be (/Users/pravin/Documents/Python/TESTCLONE/)
+    repo_path = "/Users/pravin/Documents/Python/TESTCLONE/"
     
     # CREDENTIALS (Only for HTTPS)
-    username = "castenar"
-    app_password = "asd"
-    
+    username = "<username>"
+    app_password = ""
+
     #Define patterns separated by ,
     patterns=jpg,png,mp3
+
+    # Switch Branch (yes or no). If Switch Branch is (yes), "branch_name" should be enabled
+    Switch_Branch = no
+    branch_name =
+
 
