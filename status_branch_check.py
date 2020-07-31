@@ -6,7 +6,8 @@ import auth_prep as auth
 import os
 import logging
 import sys
-
+import decouple
+from decouple import Csv
 
 # os.chdir(auth.repo_path)
 # current_working_directory = os.getcwd()
@@ -20,6 +21,7 @@ def status_check():
         print("############################\n\n")
     except git.exc.GitError as GitError:
         print("Error: ", GitError)
+        # exit(1)
 
 
 def non_bare_checks():
@@ -47,20 +49,27 @@ def non_bare_checks():
         print("############################\n\n")
     # print(type(branch_chk))
 
-        switch_branch = input("Do you want to switch branches (Yes or No): ").lower()
-    # switch_branch = "no"
+        #switch_branch = input("Do you want to switch branches (Yes or No): ").lower()
+        #switch_branch = decouple.config('Switch_Branch')
+        switch_branch = auth.switch_branch
 
         if switch_branch == 'yes':
-            branch_name = input("Which branch listed above that you would like to checkout: ").lower()
-            checkout = repo.git.checkout(branch_name)
-            branch = repo.git.branch()
-            x = branch.splitlines()
-            # print(type(x))
+            try:
+                #branch_name = input("Which branch listed above that you would like to checkout: ").lower()
+                #branch_name = decouple.config('branch_name')
+                checkout = repo.git.checkout(auth.branch_name)
+                branch = repo.git.branch()
+                x = branch.splitlines()
+                #print(x)
 
-            for string in x:
-                if string[0] == '*':
-                    # print("######## PRINT BRANCH currently checked out#########")
-                    print("The branch currently checked out is: ", string[2:])
+                for string in x:
+                    if string[0] == '*':
+                        # print("######## PRINT BRANCH currently checked out#########")
+                        print("The branch currently checked out is: ", string[2:])
+            except git.exc.GitError as GitError:
+                print("Error: ", GitError)
+            except:
+                print("\nScript Abruptly Ended")
         else:
             branch = repo.git.branch()
             x = branch.splitlines()
@@ -68,7 +77,7 @@ def non_bare_checks():
             for string in x:
                 if string[0] == '*':
                     # print("######## ELSE #########")
-                    print("The branch which you will be working on is: ", string[2:])
+                    print("The branch which you will be committing to is: ", string[2:])
     except git.exc.GitError as GitError:
         print("Error: ", GitError)
 
@@ -81,5 +90,6 @@ def bare_checks():
         print("Error: ", GitError)
 
 
-
-#non_bare_checks()
+non_bare_checks()
+#status_check()
+#bare_checks()

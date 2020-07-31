@@ -1,16 +1,11 @@
 import repo_clone_push  # from file repo_clone_push.py
-# from repo_clone import repo_path
 import status_branch_check as status_branch  # this is to get branch/status check function for a non bare repository
 import tracking_lfs_file as track_lfs
 import commit_attributes as committing
 import lfs_convert_bfg as lfs_convert
 import logging
-#import env_file_check as check
 import auth_prep as auth
 
-#Check to ensure all env are defined
-#check.env_check()
-#auth.auth_prep()
 
 bare = input("Do you want to Clone a bare repository (Enter Yes or No): ").lower()
 
