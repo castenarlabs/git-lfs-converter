@@ -90,6 +90,6 @@ def bare_checks():
         print("Error: ", GitError)
 
 
-non_bare_checks()
+#non_bare_checks()
 #status_check()
 #bare_checks()

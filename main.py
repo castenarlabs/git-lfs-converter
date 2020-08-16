@@ -6,13 +6,14 @@ import lfs_convert_bfg as lfs_convert
 import logging
 import auth_prep as auth
 
-
+track_lfs.install_lfs()
 bare = input("Do you want to Clone a bare repository (Enter Yes or No): ").lower()
 
 while True:
     if bare == "yes":
         is_bare = True
         repo_clone_push.clone(is_bare)
+        track_lfs.install_lfs()
         lfs_convert.run_bfg_convert()
         break
     elif bare == "no":

@@ -12,27 +12,29 @@ from decouple import Csv
 
 
 # Change back to python directory
-# #################### Create Dummy Binary file
-# dd if=/dev/zero of=ostechnix.txt bs=5 count=1
 cur_dir = os.getcwd()
 
 
 def chdir_to_pyrepo():
     os.chdir(cur_dir)
-    print(os.getcwd())
+    #print(os.getcwd())
+
+
+def chdir_to_main_repo():
+    # Change to repo directory
+    os.chdir(auth.repo_path)
 
 
 def tracking_lfs():
     try:
-        repo = git.Repo(auth.repo_path)
+        # repo = git.Repo(auth.repo_path)
         # print(repo.git.status(), "\n\n")
-        print("Check / Lists all of LFS Configurations Exists in config files: ")
-        lfs_config_check = os.system('git config --list |grep lfs')
+        print("Check GIT LFS configurations: ")
+        lfs_config_check = os.system('git lfs env')
         print(lfs_config_check, "\n\n")
 
         # Change to repo directory
-        os.chdir(auth.repo_path)
-        # print(os.getcwd())
+        chdir_to_main_repo()
     
         # Track LFS files based on Pattern
         pattern = decouple.config('patterns', cast=Csv())
@@ -65,31 +67,12 @@ def tracking_lfs():
 #tracking_lfs()
 #chdir_to_pyrepo()
     
-    
-# print("ConfigReader: \n")
-
-# config_reader.items_all('<section>')
-# print(type(config_reader.items_all('filter "lfs"')))
-# print(config_reader.items_all('filter "lfs"'), "\n")
-
-# print(repo.git.status())
-
-
-# print(repo.config_reader(config_level="user"))
-# logging.basicConfig(level=logging.DEBUG)
-
-# print(os.system("pwd"))
-# stage = r.index.add([".gitattributes"])
-# committing = r.index.commit("Tracking LFS files via '.gitattributes' file ")
-# print(stage, "\n")
-# print("The latest commit hash is :", committing)
-
-# repo = git.Repo(auth.repo_path)
-# print(repo.git.status())
-
-
-# print(os.system("pwd"))
-# stage = repo.git.add([".gitattributes"])
-# committing = repo.git.commit(m='Tracking LFS files via .gitattributes file')
-# print(stage, "\n")
-# print("The latest commit hash is :", committing)
+def install_lfs():
+    chdir_to_main_repo()
+    #print('\n', os.getcwd())
+    print("\n######## Initializing GIT LFS Install ##########")
+    os.system('git lfs install')
+    print("\n######## Listing GIT LFS Configs ##########\n")
+    os.system('git lfs env')
+    chdir_to_pyrepo()
+    #print('\n', os.getcwd())
