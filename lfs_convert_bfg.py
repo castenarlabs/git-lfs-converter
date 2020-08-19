@@ -25,14 +25,14 @@ def pattern_handler():
     pattern_str = ",".join(pat_list)
     #print(pattern_str)
 
-pattern_handler()
-lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
-print(lfs_migrate)
+#pattern_handler()
+#lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
+#print(lfs_migrate)
 
 def run_bfg_convert():
     # Pattern from .env file (pattern_handler func)
     pattern_handler()
-    lfs_migrate = "git lfs migrate import --include=" + pattern_str + " --everything"
+    lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
     # bfg_command = "java -jar bfg.jar --convert-to-git-lfs '*.{" + pattern + "}' --no-blob-protection --private '" + auth.repo_path + "'"
     aggressive_gc = "git reflog expire --expire=now --all && git gc --prune=now --aggressive"
     # push_all = "git push --force --all && git lfs push origin --all"
