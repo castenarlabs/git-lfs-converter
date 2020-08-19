@@ -29,9 +29,10 @@ def tracking_lfs():
     try:
         # repo = git.Repo(auth.repo_path)
         # print(repo.git.status(), "\n\n")
-        print("Check GIT LFS configurations: ")
-        lfs_config_check = os.system('git lfs env')
-        print(lfs_config_check, "\n\n")
+
+        # print("Check GIT LFS configurations: ")
+        # lfs_config_check = os.system('git lfs env')
+        # print(lfs_config_check, "\n\n")
 
         # Change to repo directory
         chdir_to_main_repo()
