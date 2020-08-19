@@ -21,29 +21,33 @@ def pattern_handler():
         #    print(type(p))
         pat_list.append(p)
 
+    global pattern_str
     pattern_str = ",".join(pat_list)
-    print(pattern_str)
+    #print(pattern_str)
 
-
+pattern_handler()
+lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
+print(lfs_migrate)
 
 def run_bfg_convert():
-    # Pattern from .env file
-    pattern = decouple.config('patterns')
-
-    bfg_command = "java -jar bfg.jar --convert-to-git-lfs '*.{" + pattern + "}' --no-blob-protection --private '" + auth.repo_path + "'"
+    # Pattern from .env file (pattern_handler func)
+    pattern_handler()
+    lfs_migrate = "git lfs migrate import --include=" + pattern_str + " --everything"
+    # bfg_command = "java -jar bfg.jar --convert-to-git-lfs '*.{" + pattern + "}' --no-blob-protection --private '" + auth.repo_path + "'"
     aggressive_gc = "git reflog expire --expire=now --all && git gc --prune=now --aggressive"
     # push_all = "git push --force --all && git lfs push origin --all"
 
     # Use BFG to convert files to LFS
-    print("#########################################")
+    print("\n#########################################")
     print("###  Converting to LFS with BFG Tool  ###")
     print("#########################################")
     print("\n")
-    print(bfg_command)
-    print(os.system(bfg_command))
-    print("\n")
+    print("Patterns / Files to convert : ", pattern_str)
     # Change to repo directory
     os.chdir(auth.repo_path)
+    print(lfs_migrate)
+    print(os.system(lfs_migrate))
+    print("\n")
 
     # Run Aggressive GC
     print("################################")

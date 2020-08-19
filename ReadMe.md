@@ -14,9 +14,10 @@
 
 1. Bare Clone the Repository (main.py)
 
-1. Use BFG to convert repository to LFS based on file extensions
-    * Check options under BFG
-    * Use : `no-blob-protection`
+1. Instead of using BFG we're using "git lfs migrate"
+    * Use Options
+        * Use : `--everything`
+        * Use : `--import=""`
 
 1. Run command to check if LFS files exists
     * `git lfs ls-files --long --size --all`
@@ -41,7 +42,7 @@
     username = "<username>"
     app_password = ""
 
-    #Define patterns separated by ,
+    #Define patterns separated by comma (,)
     patterns=jpg,png,mp3
 
     # Switch Branch (yes or no). If Switch Branch is (yes), "branch_name" should be enabled
