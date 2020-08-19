@@ -9,6 +9,23 @@ import decouple
 from decouple import Csv
 
 
+def pattern_handler():
+    pattern = decouple.config('patterns')
+
+    #Convert String to List and append "*." to each item in the list
+    x = pattern.split(",")
+    pat_list = []
+
+    for p in x:
+        p = ("*." + p)
+        #    print(type(p))
+        pat_list.append(p)
+
+    pattern_str = ",".join(pat_list)
+    print(pattern_str)
+
+
+
 def run_bfg_convert():
     # Pattern from .env file
     pattern = decouple.config('patterns')
