@@ -23,7 +23,7 @@ def pattern_handler():
 
     global pattern_str
     pattern_str = ",".join(pat_list)
-    #print(pattern_str)
+    # print(pattern_str)
 
 #pattern_handler()
 #lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
