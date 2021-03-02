@@ -5,6 +5,8 @@ import decouple
 from decouple import Csv
 import os
 import auth_prep as auth
+from os import path
+import shutil
 
 # https_repo_url = decouple.config('https_repo_url')
 # repo_path = decouple.config('repo_path')
@@ -30,6 +32,19 @@ def clone(is_bare):
             print("Bare Repository Cloned Successfully")
     except git.exc.GitError as GitError:
         print("\n ERROR: \n", GitError)
+        exit(1)
+
+
+def clone_dir_rm():
+    try:
+        print('Checking if Clone Directory already exists or not. If yes, remove existing clone directory')
+        if str(path.exists(auth.repo_path)) == 'True':
+            shutil.rmtree(auth.repo_path)
+        else:
+            print("No Existing Dir Matching : ", auth.repo_path, "\nProceeding with Mirror Repository Clone")
+    except OSError as error:
+        print(error)
+        print("Please empty ")
         exit(1)
 
 

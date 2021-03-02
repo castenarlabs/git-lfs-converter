@@ -5,12 +5,14 @@ import commit_attributes as committing
 import lfs_convert_bfg as lfs_convert
 import logging
 import auth_prep as auth
+from repo_clone_push import clone_dir_rm
 
 bare = input("Do you want to Clone a bare repository (Enter Yes or No): ").lower()
 
 while True:
     if bare == "yes":
         is_bare = True
+        clone_dir_rm() #Remove Clone Dir before fresh clone
         repo_clone_push.clone(is_bare)
         track_lfs.install_lfs()
         lfs_convert.run_bfg_convert()
