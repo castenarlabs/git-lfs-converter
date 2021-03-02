@@ -42,8 +42,13 @@ def push():
 
 def lfs_force_push():
     try:
-        #print(push_all)
-        print(os.system(push_all))
+        # print(push_all)
+        inp = input("Type 'yes' to continue force push to original repo (Anything else will exit the program): ")
+        if inp == 'yes':
+            print(os.system(push_all))
+        else:
+            print("Exiting the program. You will need to manually perform the force push using 'git push --force' from the same directory the repository was cloned")
+            exit(1)
     except git.exc.GitError as GitError:
         print("Error: \n", GitError)
 
