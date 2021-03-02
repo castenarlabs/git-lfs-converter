@@ -44,7 +44,6 @@ def clone_dir_rm():
             print("No Existing Dir Matching : ", auth.repo_path, "\nProceeding with Mirror Repository Clone")
     except OSError as error:
         print(error)
-        print("Please empty ")
         exit(1)
 
 
