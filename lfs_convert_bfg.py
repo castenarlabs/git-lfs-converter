@@ -12,7 +12,7 @@ from decouple import Csv
 def pattern_handler():
     pattern = decouple.config('patterns')
 
-    #Convert String to List and append "*." to each item in the list
+    # Convert String to List and append "*." to each item in the list
     x = pattern.split(",")
     pat_list = []
 
@@ -25,9 +25,10 @@ def pattern_handler():
     pattern_str = ",".join(pat_list)
     # print(pattern_str)
 
-#pattern_handler()
-#lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
-#print(lfs_migrate)
+
+# pattern_handler()
+# lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
+# print(lfs_migrate)
 
 def run_bfg_convert():
     # Pattern from .env file (pattern_handler func)
@@ -63,10 +64,9 @@ def run_bfg_convert():
     print("###  Force Push Repository & LFS Objects ###")
     print("############################################")
     print("\n")
-    #print(push_all)
-    #print(os.system(push_all))
+    # print(push_all)
+    # print(os.system(push_all))
     repo_clone_push.lfs_force_push()
 
     # Change back to lfs converter repo
     tracking_lfs.chdir_to_pyrepo()
-
