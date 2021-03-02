@@ -47,7 +47,7 @@ def lfs_force_push():
         if inp == 'yes':
             print(os.system(push_all))
         else:
-            print("Exiting the program. You will either need to manually perform the push or run the script again to go through the whole process once again")
+            print("Exiting the program. You will need to manually perform the force push using 'git push --force' from the same directory the repository was cloned")
             exit(1)
     except git.exc.GitError as GitError:
         print("Error: \n", GitError)
