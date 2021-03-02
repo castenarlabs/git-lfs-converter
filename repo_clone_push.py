@@ -1,4 +1,4 @@
-# This file is to define functions to clone a repository and to clone a bare repository
+# This file is to define functions to clone a repository and to clone a bare repository inclusive of pushes
 
 import git
 import decouple
@@ -6,11 +6,12 @@ from decouple import Csv
 import os
 import auth_prep as auth
 
-#https_repo_url = decouple.config('https_repo_url')
-#repo_path = decouple.config('repo_path')
+# https_repo_url = decouple.config('https_repo_url')
+# repo_path = decouple.config('repo_path')
 # https_repo_url = "https://castenar@bitbucket.org/castenar/jenkins-test.git"
-#repo_path = "/Users/pravin/Documents/Python/TESTCLONE/"
+# repo_path = "/Users/pravin/Documents/Python/TESTCLONE/"
 push_all = "git push --force --all && git lfs push origin --all"
+
 
 # https_repo_url = input("Enter Repo URL from which you want to clone: ")
 # repo_path = input("Enter Path to Clone Repository: ")
@@ -44,6 +45,7 @@ def push():
 def lfs_force_push():
     try:
         # print(push_all)
+        print("Script is PAUSED. Pending user inspection and input.\nNow You can access the bare repository to check the LFS files count using 'git lfs ls-files -a'.")
         inp = input("Type 'yes' to continue force push to original repo (Anything else will exit the program): ")
         if inp == 'yes':
             print(os.system(push_all))
@@ -53,5 +55,3 @@ def lfs_force_push():
     except git.exc.GitError as GitError:
         print("Error: \n", GitError)
         exit(1)
-
-#clone(is_bare=False)
