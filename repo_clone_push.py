@@ -28,7 +28,8 @@ def clone(is_bare):
             git.Repo.clone_from(auth.full_repo_url, auth.repo_path, mirror=True)
             print("Bare Repository Cloned Successfully")
     except git.exc.GitError as GitError:
-        print("Error: \n", GitError)
+        print("\n ERROR: \n", GitError)
+        exit(1)
 
 
 def push():
@@ -51,5 +52,6 @@ def lfs_force_push():
             exit(1)
     except git.exc.GitError as GitError:
         print("Error: \n", GitError)
+        exit(1)
 
 #clone(is_bare=False)
