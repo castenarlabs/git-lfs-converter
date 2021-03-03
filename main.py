@@ -11,11 +11,13 @@ bare = input("Do you want to Clone a bare repository (Enter Yes or No): ").lower
 
 while True:
     if bare == "yes":
-        is_bare = True
-        clone_dir_rm() #Remove Clone Dir before fresh clone
-        repo_clone_push.clone(is_bare)
-        track_lfs.install_lfs()
-        lfs_convert.run_bfg_convert()
+        is_bare = True  # Clone Bare Repo
+        repo_clone_push.backup_path_construct()  # Constructing Repository Backup Path
+        clone_dir_rm()  # Remove Existing Clone Dir before fresh clone
+        repo_clone_push.clone(is_bare)  # Cloning the bare repo)
+        repo_clone_push.backup_repo()  # Backing Up the Repo
+        track_lfs.install_lfs()  # Initializing LFS in the repo
+        lfs_convert.run_bfg_convert()  # Converting to LFS using "GIT LFS MIGRATE" including a FORCE PUSH option
         break
     elif bare == "no":
         is_bare = False
