@@ -4,9 +4,9 @@ import decouple
 from decouple import Csv
 import re
 
-print("#######################################")
+print("######################################")
 print("Checking Environment Variables Defined")
-print("#######################################")
+print("######################################")
 
 # Used to check if variables is defined appropriately
 try:
@@ -59,8 +59,8 @@ if re.search('https.+', repo_url):
     repo_slug = repo_url[22:]
     full_repo_url = http + creds + "@" + bb_domain + "/" + repo_slug
     # print("https")
-    #print(full_repo_url)
-# If above statement is false, it assume's the 'repo_url' to be SSH
+    # print(full_repo_url)
+# If above statement is false, it assume's the 'repo_url' to be SSH as below
 else:
     full_repo_url = repo_url
     # print("SSH")
@@ -109,8 +109,3 @@ except decouple.UndefinedValueError as branch_name_error:
 
 
 print(u'\u2705 All Environments are defined')
-
-
-# repo_url = decouple.config('repo_url')
-# repo_path = decouple.config('repo_path')
-# uname = decouple.config('username')

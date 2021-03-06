@@ -1,8 +1,8 @@
 import git
 import repo_clone_push
 import auth_prep as auth
-import status_branch_check as status_check
-import tracking_lfs_file as tracking_lfs
+#import status_branch_check as status_check
+import lfs_setup as lfs_setup
 import os
 import sys
 import decouple
@@ -30,7 +30,7 @@ def pattern_handler():
 # lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
 # print(lfs_migrate)
 
-def run_bfg_convert():
+def run_lfs_convert():
     # Pattern from .env file (pattern_handler func)
     pattern_handler()
     lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
@@ -67,4 +67,4 @@ def run_bfg_convert():
     repo_clone_push.lfs_force_push()
 
     # Change back to lfs converter repo
-    tracking_lfs.chdir_to_pyrepo()
+    lfs_setup.chdir_to_pyrepo()
