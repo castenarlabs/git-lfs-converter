@@ -39,9 +39,9 @@ def run_bfg_convert():
     # push_all = "git push --force --all && git lfs push origin --all"
 
     # Use BFG to convert files to LFS
-    print("\n#########################################")
-    print("###  Converting to LFS with BFG Tool  ###")
-    print("#########################################")
+    print("\n###################################################")
+    print("###  Converting to LFS with Git LFS Migrate Tool  ###")
+    print("#####################################################")
     print("\n")
     print("Patterns / Files to convert : ", pattern_str)
     # Change to repo directory
@@ -64,8 +64,6 @@ def run_bfg_convert():
     print("###  Force Push Repository & LFS Objects ###")
     print("############################################")
     print("\n")
-    # print(push_all)
-    # print(os.system(push_all))
     repo_clone_push.lfs_force_push()
 
     # Change back to lfs converter repo

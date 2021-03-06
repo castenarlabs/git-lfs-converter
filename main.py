@@ -7,6 +7,7 @@ import logging
 import auth_prep as auth
 from repo_clone_push import clone_dir_rm
 from datetime import datetime
+from summary import script_summary
 
 
 # Time Function
@@ -30,6 +31,7 @@ while True:
         repo_clone_push.backup_repo()  # Backing Up the Repo
         track_lfs.install_lfs()  # Initializing LFS in the repo
         lfs_convert.run_bfg_convert()  # Converting to LFS using "GIT LFS MIGRATE" including a FORCE PUSH option
+        script_summary()
 
         get_time_utc()
         end_time = time
