@@ -8,15 +8,8 @@ import auth_prep as auth
 from os import path
 import shutil
 
-# https_repo_url = decouple.config('https_repo_url')
-# repo_path = decouple.config('repo_path')
-# https_repo_url = "https://castenar@bitbucket.org/castenar/jenkins-test.git"
-# repo_path = "/Users/pravin/Documents/Python/TESTCLONE/"
-push_all = "git push --force --all && git lfs push origin --all"
 
-
-# https_repo_url = input("Enter Repo URL from which you want to clone: ")
-# repo_path = input("Enter Path to Clone Repository: ")
+push_all = "git push --force && git lfs push origin --all"
 
 
 def clone(is_bare):
