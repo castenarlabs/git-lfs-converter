@@ -7,6 +7,8 @@ import os
 import sys
 import decouple
 from decouple import Csv
+import subprocess
+from subprocess import PIPE
 
 
 def pattern_handler():
@@ -39,24 +41,38 @@ def run_lfs_convert():
     # push_all = "git push --force --all && git lfs push origin --all"
 
     # Use BFG to convert files to LFS
-    print("\n###################################################")
+    print("\n#####################################################")
     print("###  Converting to LFS with Git LFS Migrate Tool  ###")
     print("#####################################################")
     print("\n")
-    print("Patterns / Files to convert : ", pattern_str)
+    print(" Files to convert matching pattern : ", pattern_str)
     # Change to repo directory
     os.chdir(auth.repo_path)
-    print(lfs_migrate)
-    print(os.system(lfs_migrate))
+    print("\nRun Command :", lfs_migrate)
+    #print(os.system(lfs_migrate))
+
+    # Used this for logging as actual output does into stderr
+    lfs_cmd = subprocess.Popen([lfs_migrate], stderr=subprocess.PIPE, stdin=subprocess.PIPE, shell=True, universal_newlines=True)
+    output, error = lfs_cmd.communicate()
+    print(error)
+
+    #output = subprocess.check_output(args)
+    #print(output)
+
     print("\n")
+
 
     # Run Aggressive GC
     print("################################")
     print("###  RUNNING AGGRESSIVE GC  ###")
     print("################################")
     print("\n")
-    print(aggressive_gc)
-    print(os.system(aggressive_gc))
+    print("\n Run Aggressive_gc: ", aggressive_gc)
+
+    output = os.popen(aggressive_gc).read()
+    print(output)
+
+
     print("\n")
 
     # Force Push Repository and LFS files

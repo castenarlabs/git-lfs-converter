@@ -25,4 +25,4 @@ def script_summary():
     print('\033[1m' + 'Total GIT LFS File Count:\033[0m', os.popen('git lfs ls-files --all | wc -l').read())
 
     print('\033[1m' + 'List top 5 Largest LFS File (Bytes):\033[0m')
-    print(os.popen("git lfs ls-files --debug | grep -e 'filepath' -e 'size' | awk -F: '{ print $2 }' | awk '!(NR%2){print$0p}{p=$0}' | sort -nr | head -5").read())
+    print(os.popen("git lfs ls-files --debug --all | grep -e 'filepath' -e 'size' | awk -F: '{ print $2 }' | awk '!(NR%2){print$0p}{p=$0}' | sort -nr | head -5").read())

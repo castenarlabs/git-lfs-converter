@@ -6,12 +6,20 @@ from repo_clone_push import clone_dir_rm
 from datetime import datetime
 from summary import script_summary
 import sys
+import os
+from logger import Logger
 
 # Time Function
 def get_time_utc():
     global time
     time = (datetime.utcnow())
 
+
+# redirect standard output
+sys.stdout = Logger()
+
+# Check .env vars are defined
+auth.variable_check()
 
 get_time_utc()
 start_time = time
@@ -31,3 +39,5 @@ end_time = time
 print("\nEnd Time", end_time)
 duration = str(end_time - start_time).split(".")[0]
 print("Total Script Time :", duration)
+
+

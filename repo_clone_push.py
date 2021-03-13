@@ -7,24 +7,28 @@ import os
 import auth_prep as auth
 from os import path
 import shutil
+import subprocess
+from subprocess import PIPE
 
 
 push_all = "git push --force && git lfs push origin --all"
 
 
+class Progress(git.remote.RemoteProgress):
+    def update(self, op_code, cur_count, max_count=None, message=''):
+        print('Cloning Progress ===== (op_code= %s, cur_count = %s, max_count= %s, message= %s)' % (op_code, cur_count, max_count, message))
+
 def clone(is_bare):
     try:
-        # https_repo_url = input("Enter Repo URL from which you want to clone: ")
-        # auth.repo_path = input("Enter Path to Clone Repository: ")
         if not is_bare:
-            print("Cloning Non-Mirror Repository")
+            print("\nCloning Non-Mirror Repository")
             (git.Repo.clone_from(auth.full_repo_url, auth.repo_path, mirror=False))
-            print("Repository Cloned Successfully")
+            print("\n\u2714 Repository Cloned Successfully")
             print("\n")
         else:
-            print("Cloning Mirror Repository")
-            git.Repo.clone_from(auth.full_repo_url, auth.repo_path, mirror=True)
-            print("Mirror Repository Cloned Successfully")
+            print("\n\u2714 Cloning Mirror Repository")
+            git.Repo.clone_from(auth.full_repo_url, auth.repo_path, mirror=True, progress=Progress())
+            print("\n\u2714 Mirror Repository Cloned Successfully")
     except git.exc.GitError as GitError:
         print("\n ERROR: \n", GitError)
         exit(1)
@@ -44,7 +48,7 @@ def backup_path_construct():
 def backup_repo():
     try:
         shutil.copytree(auth.repo_path, backup_path)
-        print("Backup Made Successfully At:", backup_path)
+        print("\u2714 Backup Made Successfully At:'", backup_path, "'")
     except os.error as Error:
         print("\nError:\n Couldn't make repository backup :( \n", Error)
 
@@ -54,15 +58,15 @@ def clone_dir_rm():
         print('Checking if Clone Directory already exists or not. If yes, remove existing directory')
         if str(path.exists(auth.repo_path)) == 'True':
             shutil.rmtree(auth.repo_path)
-            print("Removing Existing Directory")
+            print("\u2714 Removing Existing Directory")
         else:
-            print("No Existing Dir Matching : ", auth.repo_path, "\nChecking if Backup Directory exists. If yes, remove existing directory")
+            print("\u2714 No Existing Dir Matching : ", auth.repo_path, "\nChecking if Backup Directory exists. If yes, remove existing directory")
 
         if str(path.exists(backup_path)) == 'True':
             shutil.rmtree(backup_path)
-            print("Removing Existing Backup Directory")
+            print("\u2714 Removing Existing Backup Directory")
         else:
-            print("No Existing Backup Dir Matching : ", backup_path, "\nProceeding with Mirror Repository Clone")
+            print("\u2714 No Existing Backup Dir Matching : ", backup_path, "\nProceeding with Mirror Repository Clone")
 
     except OSError as error:
         print(error)
@@ -84,6 +88,7 @@ def lfs_force_push():
         print("Script is PAUSED. Pending user inspection and input.\nNow You can access the bare repository to check the LFS files count using 'git lfs ls-files -a'.")
         inp = input("Type 'yes' to continue force push to original repo (Anything else will exit the program): ")
         if inp == 'yes':
+            print("\u2705 Force Push : \n")
             print(os.system(push_all))
         else:
             print("Exiting the program. You will need to manually perform the force push using 'git push --force' from the same directory the repository was cloned")
