@@ -14,9 +14,10 @@
 
 1. Bare Clone the Repository (main.py)
 
-1. Use BFG to convert repository to LFS based on file extensions
-    * Check options under BFG
-    * Use : `no-blob-protection`
+1. Instead of using BFG we're using "git lfs migrate"
+    * Use Options
+        * Use : `--everything`
+        * Use : `--import=""`
 
 1. Run command to check if LFS files exists
     * `git lfs ls-files --long --size --all`
@@ -28,4 +29,24 @@
 1. Force push bare repo
     * `git push --force`
         * Give user the option
+
+### **Sample .env file**
+
+    # USE HTTPS OR SSH URL (Either ONE, Leave the latter empty)
+    repo_url = "https://bitbucket.org/castenar/jenkins-test.git"
+    
+    # LOCAL PATHS of where the cloned repository will be (/Users/pravin/Documents/Python/TESTCLONE/)
+    repo_path = "/Users/pravin/Documents/Python/TESTCLONE/"
+    
+    # CREDENTIALS (Only for HTTPS)
+    username = "<username>"
+    app_password = ""
+
+    #Define patterns separated by comma (,)
+    patterns=jpg,png,mp3
+
+    # Switch Branch (yes or no). If Switch Branch is (yes), "branch_name" should be enabled
+    Switch_Branch = no
+    branch_name =
+
 

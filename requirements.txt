@@ -1,0 +1,5 @@
+python-decouple
+gitdb
+pygit2
+git-lfs
+GitPython
