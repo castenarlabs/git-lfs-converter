@@ -68,7 +68,7 @@ def variable_check():
         full_repo_url = http + creds + "@" + bb_domain + "/" + repo_slug
         # print("https")
         # print(full_repo_url)
-    # If above statement is false, it assume's the 'repo_url' to be SSH as below
+    # If above statement is false, assume the 'repo_url' as SSH URL
     else:
         full_repo_url = repo_url
         # print(full_repo_url)

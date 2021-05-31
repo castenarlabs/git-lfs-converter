@@ -18,6 +18,7 @@ class Progress(git.remote.RemoteProgress):
     def update(self, op_code, cur_count, max_count=None, message=''):
         print('Cloning Progress ===== (op_code= %s, cur_count = %s, max_count= %s, message= %s)' % (op_code, cur_count, max_count, message))
 
+
 def clone(is_bare):
     try:
         if not is_bare:
@@ -85,10 +86,11 @@ def push():
 def lfs_force_push():
     try:
         # print(push_all)
-        print("Script is PAUSED. Pending user inspection and input.\nNow You can access the bare repository to check the LFS files count using 'git lfs ls-files -a'.")
-        inp = input("Type 'yes' to continue force push to original repo (Anything else will exit the program): ")
+        print("Script is PAUSED. Pending user inspection and input.\nNow You can access the bare repository to check the LFS files count using 'git lfs ls-files -a'."
+              "\nType 'yes' to continue force push to original repo (Anything else will exit the program:")
+        inp = input()
         if inp == 'yes':
-            print("\u2705 Force Push : \n")
+            print("Proceeding with Force Push : \n")
             print(os.system(push_all))
         else:
             print("Exiting the program. You will need to manually perform the force push using 'git push --force' from the same directory the repository was cloned")

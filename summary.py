@@ -11,7 +11,7 @@ import auth_prep as auth
 
 def script_summary():
     os.chdir(auth.repo_path)
-    print("\n###################################")
+    print("###################################")
     print("###  LFS REPO CONVERSION SUMMARY  ###")
     print("#####################################")
     print("")
