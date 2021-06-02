@@ -1,6 +1,4 @@
 import sys
-import logging
-from logging.handlers import MemoryHandler
 
 
 class Logger(object):

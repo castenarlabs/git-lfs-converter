@@ -1,13 +1,9 @@
-import git
 import repo_clone_push
 import auth_prep as auth
-import lfs_setup as lfs_setup
+import lfs_setup
 import os
-import sys
 import decouple
-from decouple import Csv
-import subprocess
-from subprocess import PIPE
+from subprocess import PIPE, Popen
 
 
 def pattern_handler():
@@ -55,7 +51,7 @@ def run_lfs_convert():
         print("\nRun Command :", lfs_migrate)
 
         # Used this for logging as actual output does into stderr
-        lfs_cmd = subprocess.Popen([lfs_migrate], stderr=subprocess.PIPE, stdin=subprocess.PIPE, shell=True, universal_newlines=True)
+        lfs_cmd = Popen([lfs_migrate], stderr=PIPE, stdin=PIPE, shell=True, universal_newlines=True)
         output, error = lfs_cmd.communicate()
         print(error)
         print("\n")
@@ -70,14 +66,14 @@ def run_lfs_convert():
         gc_1 = "git reflog expire --expire=now --all"
         gc_2 = "git gc --prune=now --aggressive"
 
-        reflog = subprocess.Popen([gc_1], stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True, universal_newlines=True)
+        reflog = Popen([gc_1], stderr=PIPE, stdout=PIPE, shell=True, universal_newlines=True)
         out, err = reflog.communicate()
 
-        reflog = subprocess.Popen([gc_2], stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True, universal_newlines=True)
+        reflog = Popen([gc_2], stderr=PIPE, stdout=PIPE, shell=True, universal_newlines=True)
         out, err = reflog.communicate()
         print(out, err)
 
-    # agg_gc = subprocess.Popen([gc_2], stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE, shell=True, universal_newlines=True)
+    # agg_gc = Popen([gc_2], stdout=PIPE, stderr=PIPE, stdin=PIPE, shell=True, universal_newlines=True)
     # out2, err2 = agg_gc.communicate()
     # print(out2, err2)
     # print("\n")
