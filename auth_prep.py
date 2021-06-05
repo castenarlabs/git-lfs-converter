@@ -1,8 +1,6 @@
-from sys import argv
-from os import environ
 import decouple
-from decouple import Csv
 import re
+from urllib.parse import urlparse
 
 
 # Used to check if variables is defined appropriately
@@ -47,31 +45,24 @@ def variable_check():
         print("\n\u274c  Variable 'username' not defined in .env file")
         print("\nPlease ensure to define the 'username' variable")
         exit(1)
-
-    if re.search('https.+', repo_url):
-        try:
-            pwd = decouple.config('app_password')
-            if len(pwd) <= 0:
-                print("\u274c  'app_password' is empty! Please ensure variable is defined correctly")
-                exit(1)
-            print(u'\u2714 "app_password" variable is defined')
-        except decouple.UndefinedValueError as app_password_error:
-            print("\n\u274c  Variable 'app_password' not defined in .env file")
-            print("\nPlease ensure to define the 'app_password' variable")
+    try:
+        pwd = decouple.config('app_password')
+        if len(pwd) <= 0:
+            print("\u274c  'app_password' is empty! Please ensure variable is defined correctly")
             exit(1)
+        print(u'\u2714 "app_password" variable is defined')
+    except decouple.UndefinedValueError as app_password_error:
+        print("\n\u274c  Variable 'app_password' not defined in .env file")
+        print("\nPlease ensure to define the 'app_password' variable")
+        exit(1)
 
+    if "http" in repo_url.lower():
+        parsed_url = urlparse(repo_url)
         creds = uname + ":" + pwd
-        # Splitting Bitbucket URL into 3, then concatenate CREDS into it.
-        http = repo_url[:8]
-        bb_domain = repo_url[8:21]
-        repo_slug = repo_url[22:]
-        full_repo_url = http + creds + "@" + bb_domain + "/" + repo_slug
-        # print("https")
-        # print(full_repo_url)
+        full_repo_url = f'{parsed_url.scheme}://{creds}@{parsed_url.netloc}{parsed_url.path}'
     # If above statement is false, assume the 'repo_url' as SSH URL
     else:
         full_repo_url = repo_url
-        # print(full_repo_url)
 
     try:
         patterns = decouple.config('patterns')

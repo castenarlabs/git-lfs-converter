@@ -5,10 +5,8 @@ import decouple
 from decouple import Csv
 import os
 import auth_prep as auth
-from os import path
+from os import path, error, system
 import shutil
-import subprocess
-from subprocess import PIPE
 
 
 push_all = "git push --force && git lfs push origin --all"
@@ -42,7 +40,7 @@ def backup_path_construct():
             backup_path = auth.repo_path[:-1] + "_backup"
         else:
             backup_path = auth.repo_path + "_backup"
-    except os.error as Error:
+    except error as Error:
         print("\n\u274c Error:\n Couldn't construct repository backup path :( \n", Error)
 
 
@@ -50,7 +48,7 @@ def backup_repo():
     try:
         shutil.copytree(auth.repo_path, backup_path)
         print("\u2714 Backup Made Successfully At:'", backup_path, "'")
-    except os.error as Error:
+    except error as Error:
         print("\n\u274c Error:\n Couldn't make repository backup :( \n", Error)
 
 
@@ -91,7 +89,7 @@ def lfs_force_push():
         inp = input()
         if inp == 'yes':
             print("Proceeding with Force Push : \n")
-            print(os.system(push_all))
+            print(system(push_all))
         else:
             print("Exiting the program. You will need to manually perform the force push using 'git push --force' from the same directory the repository was cloned")
             exit(1)
