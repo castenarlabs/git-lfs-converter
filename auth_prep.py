@@ -1,6 +1,7 @@
 import decouple
 import re
 from urllib.parse import urlparse
+from subprocess import Popen, PIPE
 
 
 # Used to check if variables is defined appropriately
@@ -106,3 +107,17 @@ def variable_check():
 
     print(u'\u2705 All Environments are defined')
 
+
+def lfs_checks():
+    try:
+        lfs_install_check = ["git", "lfs", "--version"]
+        p = Popen(lfs_install_check, stdout=PIPE, stderr=PIPE)
+        lfs_output, error = p.communicate()
+        str_lfs_output = error.decode("utf-8")
+
+        if re.search('is not a git command.+', str_lfs_output):
+            print("FATAL: No LFS package was identified on your system, please ensure LFS is installed and run the script again.")
+            exit(1)
+
+    except Exception as e:
+        print("Error Occurred while validating LFS installation", e)

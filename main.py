@@ -16,11 +16,9 @@ def get_time_utc():
 
 
 def main():
-    # redirect standard output
-    sys.stdout = Logger()
-
-    # Check .env vars are defined else exit script
-    auth.variable_check()
+    sys.stdout = Logger()  # redirect standard output
+    auth.lfs_checks()  # Validate LFS installation
+    auth.variable_check()  # Check .env vars are defined else exit script
 
     get_time_utc()
     start_time = time
