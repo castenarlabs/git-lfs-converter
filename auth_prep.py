@@ -60,7 +60,6 @@ def variable_check():
                 print("\nPlease ensure to define the 'app_password' variable")
                 exit(1)
 
-       # if "http" in repo_url.lower():
             parsed_url = urlparse(repo_url)
             creds = uname + ":" + pwd
             full_repo_url = f'{parsed_url.scheme}://{creds}@{parsed_url.netloc}{parsed_url.path}'
