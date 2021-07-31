@@ -21,12 +21,12 @@ def clone(is_bare):
     try:
         if not is_bare:
             print("\nCloning Non-Mirror Repository")
-            (git.Repo.clone_from(auth.full_repo_url, auth.repo_path, mirror=False))
+            (git.Repo.clone_from(auth.full_repo_url, auth.repo_path, mirror=False, verbose=True))
             print("\n\u2714 Repository Cloned Successfully")
             print("\n")
         else:
             print("\n\u2714 Cloning Mirror Repository")
-            git.Repo.clone_from(auth.full_repo_url, auth.repo_path, mirror=True, progress=Progress())
+            git.Repo.clone_from(auth.full_repo_url, auth.repo_path, mirror=True, progress=Progress(), verbose=True)
             print("\n\u2714 Mirror Repository Cloned Successfully")
     except git.exc.GitError as GitError:
         print("\n\u274c ERROR: \n", GitError)
