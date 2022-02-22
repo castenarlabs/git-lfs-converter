@@ -2,7 +2,7 @@ image: python:3.8
 
 pipelines:
   branches:
-    branchname:
+    development:
       - step:
           name: LFS Automated Conversion with SSH
           caches:
@@ -25,8 +25,8 @@ pipelines:
             - cd tmpdir/LFS_CLONE
             - git lfs ls-files --debug -a| grep oid | awk 'FNR >= 1 {print $3}' > /tmp/oid.txt
             - cd ../../ && pwd && ls
-            - ls -lah tmpdir/
-            - cat tmpdir/oid.txt
+            - ls -lah /tmp
+            - cat /tmp/oid.txt
             - chmod +x tmpdir/lfs-storage-deletion.sh
             - ./tmpdir/lfs-storage-deletion.sh
             - cd LFS_CLONE_backup && git push --force
