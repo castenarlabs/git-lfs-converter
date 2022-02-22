@@ -21,13 +21,14 @@ pipelines:
             - ls -lah && ls -lah tmpdir/
             - curl -s -L --user $creds "https://api.bitbucket.org/2.0/repositories/castenar/git-lfs-scripts/src/master/scripts/lfs-storage-deletion.sh" > tmpdir/lfs-storage-deletion.sh
             - ls tmpdir/
-            - cat tmpdir/lfs-storage-deletion.sh
+            #- cat tmpdir/lfs-storage-deletion.sh
             - cd tmpdir/LFS_CLONE
             - git lfs ls-files --debug --all | grep oid | awk 'FNR >= 1 {print $3}' > /tmp/oid.txt
             - cd ../../ && pwd && ls
             - ls -lah /tmp
             - cat /tmp/oid.txt
-            - cat /tmp/oid.txt | wc -l
+            #- cat /tmp/oid.txt | wc -l
             - chmod +x tmpdir/lfs-storage-deletion.sh
             - ./tmpdir/lfs-storage-deletion.sh
-            - cd /tmpdir/LFS_CLONE_backup && git push --force
+            - cd tmpdir/LFS_CLONE_backup && ls
+            - git push --force
