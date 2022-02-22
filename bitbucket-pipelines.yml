@@ -23,10 +23,11 @@ pipelines:
             - ls tmpdir/
             - cat tmpdir/lfs-storage-deletion.sh
             - cd tmpdir/LFS_CLONE
-            - git lfs ls-files --debug -a| grep oid | awk 'FNR >= 1 {print $3}' > /tmp/oid.txt
+            - git lfs ls-files --debug --all | grep oid | awk 'FNR >= 1 {print $3}' > /tmp/oid.txt
             - cd ../../ && pwd && ls
             - ls -lah /tmp
             - cat /tmp/oid.txt
+            - cat /tmp/oid.txt | wc -l
             - chmod +x tmpdir/lfs-storage-deletion.sh
             - ./tmpdir/lfs-storage-deletion.sh
-            - cd LFS_CLONE_backup && git push --force
+            - cd /tmpdir/LFS_CLONE_backup && git push --force
