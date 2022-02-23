@@ -5,7 +5,7 @@ import decouple
 from decouple import Csv
 import os
 import auth_prep as auth
-from os import path, error, system
+from os import path, error, system, environ
 import shutil
 
 
@@ -85,14 +85,37 @@ def lfs_force_push():
     try:
         # print(push_all)
         print("Script is PAUSED. Pending user inspection and input.\nNow You can access the bare repository to check the LFS files count using 'git lfs ls-files -a'."
-              "\nType 'yes' to continue force push to original repo (Anything else will exit the program:")
-        inp = input()
-        if inp == 'yes':
-            print("Proceeding with Force Push : \n")
+              "\nType 'yes' to continue force push to original repo (Anything else will exit the program)")
+
+        # If variable is not empty and equals to 'yes' continue with push
+        if (environ.get('input_decision')) is not None and (environ.get('input_decision')) == 'yes':
+            input_decision = os.getenv('input_decision')
+            print('Variable "input_decision" is defined with "yes". Proceeding with push\n')
             print(system(push_all))
-        else:
-            print("Exiting the program. You will need to manually perform the force push using 'git push --force' from the same directory the repository was cloned")
-            exit(1)
+
+        # variable is not empty but not 'yes', ask again to confirm if you want to push
+        elif (environ.get('input_decision')) is not None and (environ.get('input_decision')) != 'yes':
+            input_decision = input('Would you like to force push now?: \n')
+
+            if input_decision == 'yes':
+                print("Proceeding with Force Push : \n")
+                print(system(push_all))
+            else:
+                print("Exiting the program. You will need to manually perform the force push using 'git push --force' from the same directory the repository was cloned\n")
+                exit(1)
+        # Variable is empty, we ask again to confirm
+        elif (environ.get('input_decision')) is None:
+            input_decision = input('Would you like to force push now?: \n')
+
+            if input_decision == 'yes':
+                print("Proceeding with Force Push : \n")
+                print(system(push_all))
+            else:
+                print("Exiting the program. You will need to manually perform the force push using 'git push --force' from the same directory the repository was cloned")
+                exit(1)
+#        else:
+#            print("Outer - Exiting the program. You will need to manually perform the force push using 'git push --force' from the same directory the repository was cloned")
+#            exit(1)
     except git.exc.GitError as GitError:
         print("\u274c Error: \n", GitError)
         exit(1)

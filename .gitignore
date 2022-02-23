@@ -2,3 +2,4 @@ __pycache__
 .env
 script.log
 .idea/
+venv/
