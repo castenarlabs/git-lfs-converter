@@ -1,10 +1,9 @@
 image: python:3.8
 
-pipelines:
-  branches:
-    development:
-      - step:
-          name: LFS Automated Conversion with SSH
+definitions:
+  steps:
+    - step: &Convert-using-Pattern-and-Folder
+          name: LFS Automated Conversion with Pattern & Folder
           caches:
             - pip
           script:
@@ -14,21 +13,80 @@ pipelines:
             - echo $env_file | base64 --decode > .env
             - cat .env
             - mkdir tmpdir && ls tmpdir/
-            - python3 main.py
+            - python3 main.py -f -p # Using -f and -p for pattern and folder
             - ls -R tmpdir/
           after-script:
             - echo "CLEANUP"
             - ls -lah && ls -lah tmpdir/
             - curl -s -L --user $creds "https://api.bitbucket.org/2.0/repositories/castenar/git-lfs-scripts/src/master/scripts/lfs-storage-deletion.sh" > tmpdir/lfs-storage-deletion.sh
             - ls tmpdir/
-            #- cat tmpdir/lfs-storage-deletion.sh
             - cd tmpdir/LFS_CLONE
             - git lfs ls-files --debug --all | grep oid | awk 'FNR >= 1 {print $3}' > /tmp/oid.txt
             - cd ../../ && pwd && ls
             - ls -lah /tmp
             - cat /tmp/oid.txt
-            #- cat /tmp/oid.txt | wc -l
             - chmod +x tmpdir/lfs-storage-deletion.sh
             - ./tmpdir/lfs-storage-deletion.sh
             - cd tmpdir/LFS_CLONE_backup && ls
             - git push --force
+    - step: &Convert-using-Pattern
+          name: LFS Automated Conversion with Pattern
+          caches:
+            - pip
+          script:
+            - pwd & ls -lah
+            - pip install -r requirements.txt
+            - apt-get update && apt-get install git-lfs -y
+            - echo $env_file | base64 --decode > .env
+            - cat .env
+            - mkdir tmpdir && ls tmpdir/
+            - python3 main.py -p # Using -p for pattern
+            - ls -R tmpdir/
+          after-script:
+            - echo "CLEANUP"
+            - ls -lah && ls -lah tmpdir/
+            - curl -s -L --user $creds "https://api.bitbucket.org/2.0/repositories/castenar/git-lfs-scripts/src/master/scripts/lfs-storage-deletion.sh" > tmpdir/lfs-storage-deletion.sh
+            - ls tmpdir/
+            - cd tmpdir/LFS_CLONE
+            - git lfs ls-files --debug --all | grep oid | awk 'FNR >= 1 {print $3}' > /tmp/oid.txt
+            - cd ../../ && pwd && ls
+            - ls -lah /tmp
+            - cat /tmp/oid.txt
+            - chmod +x tmpdir/lfs-storage-deletion.sh
+            - ./tmpdir/lfs-storage-deletion.sh
+            - cd tmpdir/LFS_CLONE_backup && ls
+            - git push --force
+    - step: &Convert-using-Folder
+          name: LFS Automated Conversion with Folder
+          caches:
+            - pip
+          script:
+            - sleep 30s
+            - pwd & ls -lah
+            - pip install -r requirements.txt
+            - apt-get update && apt-get install git-lfs -y
+            - echo $env_file | base64 --decode > .env
+            - cat .env
+            - mkdir tmpdir && ls tmpdir/
+            - python3 main.py -f #Using -f for folder
+            - ls -R tmpdir/
+          after-script:
+            - echo "CLEANUP"
+            - ls -lah && ls -lah tmpdir/
+            - curl -s -L --user $creds "https://api.bitbucket.org/2.0/repositories/castenar/git-lfs-scripts/src/master/scripts/lfs-storage-deletion.sh" > tmpdir/lfs-storage-deletion.sh
+            - ls tmpdir/
+            - cd tmpdir/LFS_CLONE
+            - git lfs ls-files --debug --all | grep oid | awk 'FNR >= 1 {print $3}' > /tmp/oid.txt
+            - cd ../../ && pwd && ls
+            - ls -lah /tmp
+            - cat /tmp/oid.txt
+            - chmod +x tmpdir/lfs-storage-deletion.sh
+            - ./tmpdir/lfs-storage-deletion.sh
+            - cd tmpdir/LFS_CLONE_backup && ls
+            - git push --force
+pipelines:
+  branches:
+    development:
+      - step: *Convert-using-Pattern-and-Folder
+      - step: *Convert-using-Pattern
+      - step: *Convert-using-Folder
