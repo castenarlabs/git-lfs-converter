@@ -114,5 +114,5 @@ def lfs_checks():
         print("Error Occurred while validating LFS installation", e)
 
 
-switch_check()
-variable_check()
+#switch_check()
+#variable_check()
