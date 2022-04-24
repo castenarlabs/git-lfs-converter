@@ -7,6 +7,7 @@ from datetime import datetime
 from summary import script_summary
 import sys
 from logger import Logger
+from OptionSelector import switch_check
 
 
 # Time Function
@@ -18,6 +19,7 @@ def get_time_utc():
 def main():
     sys.stdout = Logger()  # redirect standard output
     auth.lfs_checks()  # Validate LFS installation
+    switch_check() # Ensure the right flags are used on the command
     auth.variable_check()  # Check .env vars are defined else exit script
 
     get_time_utc()

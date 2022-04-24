@@ -4,7 +4,7 @@ import lfs_setup
 import os
 import decouple
 from subprocess import PIPE, Popen
-
+import OptionSelector
 
 def pattern_handler():
     try:
@@ -27,15 +27,41 @@ def pattern_handler():
         print(e)
 
 
-# pattern_handler()
-# lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
-# print(lfs_migrate)
+def folder_handler():
+    try:
+        global folder
+        folder = decouple.config('folder')
+    except Exception as e:
+        print(e)
+
+
+def command_construct():
+    try :
+        global lfs_migrate
+        if OptionSelector.options.__dict__['patterns'] and OptionSelector.options.__dict__['folder']:  # If true then >
+            pattern_handler()
+            folder_handler()
+            lfs_migrate = "git lfs migrate import --include='" + pattern_str + ',' + folder + "' --everything"
+        elif OptionSelector.options.__dict__['patterns']:
+            pattern_handler()
+            lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
+        elif OptionSelector.options.__dict__['folder']:
+            folder_handler()
+            lfs_migrate = "git lfs migrate import --include='" + folder + "' --everything"
+    except Exception as e:
+        print(e)
+
+
+#lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
+#command_construct()
+#print(lfs_migrate)
 
 def run_lfs_convert():
     # Pattern from .env file (pattern_handler func)
     pattern_handler()
     try:
-        lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything"
+        command_construct()
+        # lfs_migrate = "git lfs migrate import --include='" + pattern_str + "' --everything" #Replaced with command_construct()
         # bfg_command = "java -jar bfg.jar --convert-to-git-lfs '*.{" + pattern + "}' --no-blob-protection --private '" + auth.repo_path + "'"
         aggressive_gc = "git reflog expire --expire=now --all && git gc --prune=now --aggressive"
         # push_all = "git push --force --all && git lfs push origin --all"

@@ -2,6 +2,8 @@ import decouple
 import re
 from urllib.parse import urlparse
 from subprocess import Popen, PIPE
+from OptionSelector import switch_check
+import OptionSelector
 
 
 # Used to check if variables is defined appropriately
@@ -15,6 +17,7 @@ def variable_check():
     global repo_path
     global full_repo_url
     global patterns
+    global folder
 
     try:
         repo_url = decouple.config('repo_url')
@@ -69,16 +72,29 @@ def variable_check():
     except:
         exit(1)
 
-    try:
-        patterns = decouple.config('patterns')
-        if len(patterns) <= 0:
-            print("\u274c  'patterns' is empty! Please ensure variable is defined correctly")
+    if OptionSelector.options.__dict__['folder']:  # If true then >
+        try:
+            folder = decouple.config('folder')
+            if len(folder) <= 0:
+                print("\u274c  'folder' is empty! Please ensure variable is defined correctly")
+                exit(1)
+            print(u'\u2714 "folder" variable is defined')
+        except decouple.UndefinedValueError as folder_error:
+            print("\n\u274c  Variable 'folder' not defined in .env file")
+            print("\nPlease ensure to define the 'folder' variable")
             exit(1)
-        print(u'\u2714 "patterns" variable is defined')
-    except decouple.UndefinedValueError as patterns_error:
-        print("\n\u274c  Variable 'patterns' not defined in .env file")
-        print("\nPlease ensure to define the 'patterns' variable")
-        exit(1)
+
+    if OptionSelector.options.__dict__['patterns']:  # If true then >
+        try:
+            patterns = decouple.config('patterns')
+            if len(patterns) <= 0:
+                print("\u274c  'patterns' is empty! Please ensure variable is defined correctly")
+                exit(1)
+            print(u'\u2714 "patterns" variable is defined')
+        except decouple.UndefinedValueError as patterns_error:
+            print("\n\u274c  Variable 'patterns' not defined in .env file")
+            print("\nPlease ensure to define the 'patterns' variable")
+            exit(1)
 
     print(u'\u2705 All Environments are defined')
 
@@ -96,3 +112,7 @@ def lfs_checks():
 
     except Exception as e:
         print("Error Occurred while validating LFS installation", e)
+
+
+switch_check()
+variable_check()
