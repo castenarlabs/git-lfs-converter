@@ -11,7 +11,7 @@
 
 1. GIT LFS Installed
 
-1. Python 3 Installed
+1. Python 3 Installed & Packages in requirements.txt installed
 
 1. .env file following the [template](https://bitbucket.org/castenar/automated-lfs-converter/src/master/.env-template)
 
