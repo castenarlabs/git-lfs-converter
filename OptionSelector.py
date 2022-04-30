@@ -2,10 +2,8 @@ import optparse
 import sys
 from optparse import OptionParser
 
-
-
-#required = "username password local_path repo_url".split()
-#either_one = ['patterns', 'folder', 'size']
+# required = "username password local_path repo_url".split()
+# either_one = ['patterns', 'folder', 'size']
 either_one = ['patterns', 'folder']
 parser = OptionParser()
 
@@ -16,14 +14,8 @@ def parse_input():
     """
     # parser = OptionParser()
     # Required Flag
-    #parser.add_option('-u', '--user', dest='username', default=None, action="store", help="[REQUIRED] User which has WRITE permission to the repository", )
-    #parser.add_option('-c', '--pass', dest='password', default=None, action="store", help="[REQUIRED] App_Password which has WRITE permission to the repository", )
     parser.add_option('-p', '--pattern', dest='patterns', default=None, action="store_true", help="[REQUIRED] File  patterns to be converted to LFS (png,jpg)")
-    #parser.add_option('-p', '--pattern', dest='patterns', default=None, action="store", help="[REQUIRED] File  patterns to be converted to LFS (png,jpg)")
     parser.add_option('-f', '--folder', dest='folder', default=None, action="store_true", help="[REQUIRED] Convert all files in a directory to LFS (folder1, folder2)")
-    #parser.add_option('-s', '--size', dest='size', default=None, action="store", help="[REQUIRED] Sets verbose logging to enabled")
-    #parser.add_option('-l', '--local-path', dest='local_path', default=None, action="store", help="[REQUIRED] Local full path of where clone will be stored")
-    #parser.add_option('-r', '--repo-url', dest='repo_url', default=None, action="store", help="[REQUIRED] Local full path of where clone will be stored")
 
     #Optional Flag
     #parser.add_option('-d', '--dry-run', dest='dryrun', default=False, action="store_true", help='Flag dry-run only, no write operations.')
@@ -40,7 +32,7 @@ except (optparse.OptionConflictError, optparse.BadOptionError, optparse.OptionEr
 
 
 def switch_check():
-    #for r in required:
+    # for r in required:
     #    while options.__dict__[r] is None:
     #        print("Parameter Missing :", r, '\n')
     #        parser.error("Parameter %s required" % required)
@@ -64,4 +56,4 @@ def switch_check():
         exit(1)
 
 
-#switch_check()
+'''switch_check()'''

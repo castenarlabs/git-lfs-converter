@@ -1,52 +1,70 @@
-# This program is to automate existing repo conversion to LFS
-(i) Ensure to take backup of repository (either bare or normal clone and checkout all branches)
-(i) Check about logging for all these commands
-### **Start LFS Tracking**
-1. Normal Clone a Repository (main.py)
+# This program is to automate conversion of Existing Repositories to LFS
 
-1. Install LFS Add files to be tracked by LFS
+****
+* This Script Supports Conversion to LFS via :
 
-1. Commit to the repository
+    * Directory
+    * Patterns
+   
+### **What is required!**
+1. GIT (Latest Version Preferably) Installed
 
-1. Push to remote
+1. GIT LFS Installed
 
-### **Track LFS files**
+1. Python 3 Installed
 
-1. Bare Clone the Repository (main.py)
+1. .env file following the [template](https://bitbucket.org/castenar/automated-lfs-converter/src/master/.env-template)
 
-1. Instead of using BFG we're using "git lfs migrate"
-    * Use Options
-        * Use : `--everything`
-        * Use : `--import=""`
+    * Refer to example below
+   
+#### Authentication
+1. Method of clone via SSH OR HTTPS will be determined based on URL used on .env file
 
-1. Run command to check if LFS files exists
-    * `git lfs ls-files --long --size --all`
-    * `git lfs status`  
-
-1. Run Aggressive GC
-    * `git reflog expire --expire=now --all && git gc --prune=now --aggressive`
-
-1. Force push bare repo
-    * `git push --force`
-        * Give user the option
-
+   1. If you use a HTTPS URL : 
+      1. In .env file, you will need a username and app_password
+   1. If you use SSH URL
+      1. You will be prompted for your SSH Key credentials 
+      1. Alternatively you can add your SSH Key to the SSH Agent
+   
 ### **Sample .env file**
 
-    # USE HTTPS OR SSH URL (Either ONE, Leave the latter empty)
-    repo_url = "https://bitbucket.org/castenar/jenkins-test.git"
-    
-    # LOCAL PATHS of where the cloned repository will be (/Users/pravin/Documents/Python/TESTCLONE/)
-    repo_path = "/Users/pravin/Documents/Python/TESTCLONE/"
-    
-    # CREDENTIALS (Only for HTTPS)
-    username = "<username>"
-    app_password = ""
+      # USE HTTPS OR SSH URL (either one)
+      repo_url = "<Repository URL>"
 
-    #Define patterns separated by comma (,)
-    patterns=jpg,png,mp3
+      # LOCAL PATHS of where the cloned repository will be located (/Users/trichard/Documents/Python/CLONE_REPO/).
+      # This directory should be empty
+      repo_path = "<path to your local repo directory>"
 
-    # Switch Branch (yes or no). If Switch Branch is (yes), "branch_name" should be enabled
-    Switch_Branch = no
-    branch_name =
+      # CREDENTIALS (Only for HTTPS)
+      username = "<username>"
+      app_password = "<password>"
+
+      #Define patterns AND/OR folder separated by comma (,) E.g : `Patterns=py,jpg,png` | Folder=notebook,script/file_handler
+      patterns=<patterns>
+      folder=<folder>
+
+### **What you need to do**
+1. Ensure Requirements above are met.
+1. Run script : `main.py`
 
 
+### **How it works**
+1. Read and validate .env file to ensure variables are defined
+
+1. Removes existing clone directory if exists from specified path (Please ensure it's empty)
+
+1. Looks for specified clone directory with "_backup" appended to it. If exists, it will be removed.
+
+1. Makes a mirror clone of the repository in the specified directory  
+
+1. Takes Repository Backup in the same directory mentioned
+   
+1. Initializes LFS in the repo 
+   
+1. Converts to LFS using "GIT LFS MIGRATE" 
+
+1. Runs GIT GC Aggressive
+   
+1. User have the option to FORCE PUSH back to remote OR force push manually later
+
+1. After the push within script, a Summary will be printed.
