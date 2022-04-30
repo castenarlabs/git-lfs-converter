@@ -1,10 +1,3 @@
-"""
-* Add Summary of Conversion at end of build (LFS LS-files, repo size, pull number of files by patterns, git attributes pattern)
-** git show $(git cat-file HEAD -p | grep tree | awk '{print $2}'):.gitattributes | grep "merge=lfs"
-** git lfs ls-files --all | wc -l
-** git lfs ls-files --debug | grep -e "filepath" -e "size" | awk -F: '{ print $2 }' | awk '!(NR%2){print$0p}{p=$0}' | sort -nr | head -5
-"""
-
 import os
 import auth_prep as auth
 

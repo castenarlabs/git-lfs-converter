@@ -3,3 +3,4 @@ gitdb
 pygit2
 git-lfs
 GitPython
+optparse-pretty

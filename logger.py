@@ -1,6 +1,4 @@
 import sys
-import logging
-from logging.handlers import MemoryHandler
 
 
 class Logger(object):
@@ -8,7 +6,7 @@ class Logger(object):
         # sys.stderr = sys.stdout
         self.terminal = sys.stdout
         # self.terminal = sys.stderr
-        self.log = open("yourapp.log", "a")
+        self.log = open("script.log", "a")
 
     def write(self, message):
         self.terminal.write(message)

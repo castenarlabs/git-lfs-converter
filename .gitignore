@@ -1,3 +1,5 @@
 __pycache__
 .env
-yourapp.log
+script.log
+.idea/
+venv/
