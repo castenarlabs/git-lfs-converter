@@ -1,7 +1,7 @@
 # This program is to automate conversion of Existing Repositories to LFS
 
 ****
-**Supported Platform : Linux & MacOS Only**
+**<span style="color:red">Supported Platform : Linux & MacOS Only </span>**
 
 * This Script Supports Conversion to LFS via :
 
