@@ -21,7 +21,7 @@
 1. Method of clone via SSH OR HTTPS will be determined based on URL used on .env file
 
    1. If you use a HTTPS URL : 
-      1. In .env file, you will need a username and app_password
+      1. In .env file, you will need a bb_username and bb_app_password variable
    1. If you use SSH URL
       1. You will be prompted for your SSH Key credentials 
       1. Alternatively you can add your SSH Key to the SSH Agent
@@ -36,8 +36,8 @@
       repo_path = "<path to your local repo directory>"
 
       # CREDENTIALS (Only for HTTPS)
-      username = "<username>"
-      app_password = "<password>"
+      bb_username = "<username>"
+      bb_app_password = "<password>"
 
       #Define patterns AND/OR folder separated by comma (,) E.g : `Patterns=py,jpg,png` | Folder=notebook,script/file_handler
       patterns=<patterns>

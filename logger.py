@@ -6,7 +6,7 @@ class Logger(object):
         # sys.stderr = sys.stdout
         self.terminal = sys.stdout
         # self.terminal = sys.stderr
-        self.log = open("script.log", "a")
+        self.log = open("script.log", "a", encoding="utf-8")
 
     def write(self, message):
         self.terminal.write(message)
