@@ -43,24 +43,24 @@ def variable_check():
     try:
         if repo_url.startswith(("http://", "https://"), 0):
             try:
-                uname = decouple.config('username')
+                uname = decouple.config('bb_username')
                 if len(uname) <= 0:
-                    print("\u274c  'username' is empty! Please ensure variable is defined correctly")
+                    print("\u274c  'bb_username' is empty! Please ensure variable is defined correctly")
                     exit(1)
-                print(u'\u2714 "username" variable is defined')
+                print(u'\u2714 "bb_username" variable is defined')
             except decouple.UndefinedValueError as username_error:
-                print("\n\u274c  Variable 'username' not defined in .env file")
-                print("\nPlease ensure to define the 'username' variable")
+                print("\n\u274c  Variable 'bb_username' not defined in .env file")
+                print("\nPlease ensure to define the 'bb_username' variable")
                 exit(1)
             try:
-                pwd = decouple.config('app_password')
+                pwd = decouple.config('bb_app_password')
                 if len(pwd) <= 0:
-                    print("\u274c  'app_password' is empty! Please ensure variable is defined correctly")
+                    print("\u274c  'bb_app_password' is empty! Please ensure variable is defined correctly")
                     exit(1)
-                print(u'\u2714 "app_password" variable is defined')
+                print(u'\u2714 "bb_app_password" variable is defined')
             except decouple.UndefinedValueError as app_password_error:
-                print("\n\u274c  Variable 'app_password' not defined in .env file")
-                print("\nPlease ensure to define the 'app_password' variable")
+                print("\n\u274c  Variable 'bb_app_password' not defined in .env file")
+                print("\nPlease ensure to define the 'bb_app_password' variable")
                 exit(1)
 
             parsed_url = urlparse(repo_url)
