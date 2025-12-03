@@ -41,7 +41,7 @@
       bb_username = "<username>"
       bb_app_password = "<password>"
 
-      #Define patterns AND/OR folder separated by comma (,) E.g : `Patterns=py,jpg,png` | Folder=notebook,script/file_handler
+      #Define patterns AND/OR folder separated by comma (,) E.g : `patterns=py,jpg,png` | Folder=notebook,script/file_handler
       patterns=<patterns>
       folder=notebook,scripts
 
