@@ -1,7 +1,7 @@
 # This program is to automate conversion of Existing Repositories to LFS
 
 ****
-**<span style="color:red">Supported Platform : Linux & MacOS Only </span>**
+**WARNING: Supported Platform: Linux & MacOS Only**
 
 * This Script Supports Conversion to LFS via :
 
@@ -41,9 +41,9 @@
       bb_username = "<username>"
       bb_app_password = "<password>"
 
-      #Define patterns AND/OR folder separated by comma (,) E.g : `Patterns=py,jpg,png` | Folder=notebook,script/file_handler
+      #Define patterns AND/OR folder separated by comma (,) E.g : `patterns=py,jpg,png` | Folder=notebook,script/file_handler
       patterns=<patterns>
-      folder=<folder>
+      folder=notebook,scripts
 
 ### **What you need to do**
 1. Ensure Requirements above are met.
