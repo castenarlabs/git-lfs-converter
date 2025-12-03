@@ -43,7 +43,7 @@
 
       #Define patterns AND/OR folder separated by comma (,) E.g : `Patterns=py,jpg,png` | Folder=notebook,script/file_handler
       patterns=<patterns>
-      folder=<folder>
+      folder=notebook,scripts
 
 ### **What you need to do**
 1. Ensure Requirements above are met.
