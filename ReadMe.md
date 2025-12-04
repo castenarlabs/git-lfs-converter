@@ -15,7 +15,7 @@
 
 1. Python 3 Installed & Packages in requirements.txt installed
 
-1. .env file following the [template](https://bitbucket.org/castenar/automated-lfs-converter/src/master/.env-template)
+1. .env file following the [template]([https://bitbucket.org/castenar/automated-lfs-converter/src/master/.env-template](https://github.com/castenarlabs/git-lfs-converter/blob/master/.env-template))
 
     * Refer to example below
    
