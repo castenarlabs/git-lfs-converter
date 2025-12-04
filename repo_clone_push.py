@@ -14,7 +14,7 @@ push_all = "git push --force && git lfs push origin --all"
 
 class Progress(git.remote.RemoteProgress):
     def update(self, op_code, cur_count, max_count=None, message=''):
-        print('Cloning Progress ===== (op_code= %s, cur_count = %s, max_count= %s, message= %s)' % (op_code, cur_count, max_count, message))
+        print('Cloning Progress ===== (op_code= %s, cur_count = %s, max_count= %s, message= %s)' % (op_code, cur_count, max_count, message), end='\r')
 
 
 def clone(is_bare):
